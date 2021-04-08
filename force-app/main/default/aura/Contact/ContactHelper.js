@@ -9,9 +9,6 @@
             }
         });
     },
-    updateContact: function(component, contact) {
-        this.saveContact(component, contact);
-    },
     saveContact: function(component, contact, callback) {
         let action = component.get("c.saveContact");
         action.setParams({

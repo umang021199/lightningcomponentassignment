@@ -4,11 +4,6 @@
         var pageSize = component.get("v.Selectedvalue"); 
         helper.getContactList(component, pageNumber, pageSize);
     },
-    openPage: function(component, event, helper) {
-        var pageNumber = event.getSource().get("v.value");
-        var pageSize = component.get("v.Selectedvalue");
-        helper.getContactList(component, pageNumber, pageSize);
-    },
 	handleNext: function(component, event, helper) {
         var pageNumber = component.get("v.PageNumber");  
         var pageSize = component.get("v.Selectedvalue");

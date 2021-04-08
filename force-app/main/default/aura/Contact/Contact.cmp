@@ -1,8 +1,6 @@
 <aura:component controller="Controller">   
     <aura:attribute name="contacts" type="Contact[]"/>
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
-    <aura:handler name="updateContact" event="c:ItemUpdate"
-                  action="{!c.handleUpdateContact}"/>
     <aura:handler name="createContact" event="c:ItemUpdate"
                   action="{!c.handleCreateContact}"/> 
     <div style="margin-left: 500px;">
