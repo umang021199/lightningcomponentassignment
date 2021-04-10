@@ -1,8 +1,9 @@
 <aura:component controller="Controller">   
     <aura:attribute name="contacts" type="Contact[]"/>
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
-    <aura:handler name="createContact" event="c:ItemUpdate"
-                  action="{!c.handleCreateContact}"/> 
+    <aura:handler name="createContact" event="c:ItemUpdate" action="{!c.handleCreateContact}"/> 
+    <aura:handler name="DeleteRow" event="c:DeleteRow" action="{!c.removeRow}"/>
+    <aura:handler name="EditRow" event="c:EditRow" action="{!c.EditRow}"/>
     <div style="margin-left: 500px;">
         <lightning:layout class="slds-grid_vertical-align-center">
             <lightning:layoutItem padding="around-small" size="6">
@@ -13,7 +14,42 @@
     <div style="margin-left: 400px;">
         <lightning:layout>
             <lightning:layoutItem padding="around-small" size="8">
-                <c:contactList contacts="{!v.contacts}"/>
+            <lightning:card title="Contact Details">
+            <div class="slds-card__body">
+            <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered slds-table_fixed-layout" role="grid">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Action">Action</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Name">Name</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Phone No.">Phone No.</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="email">Email</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Date">BirthDate</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Department">Department</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.contacts}" var="contact" indexVar="index">
+                        <c:contactItem contact="{!contact}" rowIndex="{!index}"/>       
+                    </aura:iteration>                    
+                </tbody>
+            </table>
+            </div>
+            <div class="slds-clearfix">
+                <c:ContactPaging contacts="{!v.contacts}"/>
+            </div>
+            </lightning:card>
             </lightning:layoutItem>        
         </lightning:layout>
     </div>

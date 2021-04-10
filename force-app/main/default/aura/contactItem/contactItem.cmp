@@ -1,6 +1,6 @@
 <aura:component >
     <aura:attribute name="contact" type="Contact"/>
-    <aura:attribute name="name" type="String" default="{!v.contact.FirstName+' '+v.contact.LastName}"/>
+    <aura:attribute name="name" type="String" />
     <aura:attribute name="rowIndex" type="Integer"/>
     <aura:registerEvent name="DeleteRow" type="c:DeleteRow"/> 
     <aura:registerEvent name="EditRow" type="c:EditRow"/>
@@ -12,34 +12,24 @@
             <th scope="row">
                 <div class="slds-truncate" title="Action">
                     <a onclick="{!c.handleUpdateContact}" tabindex="-1">Save</a>
-                    <a href="#" tabindex="-1"> / </a>
-                    <a onclick="{!c.cancel}" href="#" tabindex="-1">Cancel</a>
+                    /
+                    <a onclick="{!c.cancel}" tabindex="-1">Cancel</a>
                 </div>
             </th>
             <td role="gridcell">
-                <lightning:input aura:id="contactform" name="fname"
-                                 value="{!v.contact.FirstName}"
-                                 /> 
+                <lightning:input aura:id="contactname" name="fname" value="{!v.name}" onchange="{!c.nameInpChange}" /> 
             </td>
             <td role="gridcell">
-                <lightning:input type="tel" aura:id="contactform" name="contactPhone"
-                                 value="{!v.contact.Phone}"
-                                 />
+                <lightning:input type="tel" aura:id="contactform" name="contactPhone" value="{!v.contact.Phone}" />
             </td>
             <td role="gridcell">
-                <lightning:input type="email" aura:id="contactform" name="contactemail"
-                                 value="{!v.contact.Email}"
-                                 />  
+                <lightning:input type="email" aura:id="contactform" name="contactemail" value="{!v.contact.Email}"/>  
             </td>
             <td role="gridcell">
-                <lightning:input type="date" aura:id="contactform" name="contactdate"
-                                 value="{!v.contact.Birthdate}"
-                                 />
+                <lightning:input type="date" aura:id="contactform" name="contactdate" value="{!v.contact.Birthdate}" />
             </td>
             <td role="gridcell">
-                <lightning:input aura:id="contactform" name="contactDepartment"
-                                 value="{!v.contact.Department}"
-                                 />
+                <lightning:input aura:id="contactform" name="contactDepartment" value="{!v.contact.Department}" />
             </td> 
         </tr>                  
         <aura:set attribute="else">
@@ -47,8 +37,8 @@
                 <th scope="row">
                     <div class="slds-truncate" title="Action">
                         <a onclick="{!c.deleteRow}" tabindex="-1">Del</a>
-                        <a href="#" tabindex="-1"> / </a>
-                        <a onclick="{!c.inlineEdit}" href="#" tabindex="-1">Edit</a>
+                        /
+                        <a onclick="{!c.inlineEdit}" tabindex="-1">Edit</a>
                     </div>
                 </th>
                 <td role="gridcell">

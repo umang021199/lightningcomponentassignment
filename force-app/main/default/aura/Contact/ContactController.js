@@ -21,4 +21,16 @@
         let newContact = event.getParam("contact");
         helper.createContact(component, newContact);
     },
+    removeRow: function(component, event, helper) {
+        var index = event.getParam("indexVar");
+        var AllRowsList = component.get("v.contacts");
+        helper.deleteContact(component, AllRowsList[index]);
+        AllRowsList.splice(index, 1);
+        component.set("v.contacts", AllRowsList);
+    },
+    EditRow: function(component, event, helper) {
+        var index = event.getParam("EditIndex");
+        var AllRowsList = component.get("v.contacts");
+        helper.updateContact(component, AllRowsList[index],index);
+    },
 })
