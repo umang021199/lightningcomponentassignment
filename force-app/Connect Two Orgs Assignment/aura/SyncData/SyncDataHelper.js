@@ -6,10 +6,10 @@
             "accId": recordId
         });
         action.setCallback(this, function(response) {
+            component.set("v.toggleSpinner", false);
+            $A.get("e.force:closeQuickAction").fire();
+            var toastEvent = $A.get("e.force:showToast");
             if (response.getState() === "SUCCESS"){
-                component.set("v.toggleSpinner", false);
-                $A.get("e.force:closeQuickAction").fire();
-                var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     title : 'Success',
                     message: 'Data Synced Sucessfully!',
@@ -18,12 +18,9 @@
                     type: 'success',
                     mode: 'pester'
                 });
-                toastEvent.fire();
-            } else{
+            } 
+            else{
                 var error = response.getError();
-                component.set("v.toggleSpinner", false);
-                $A.get("e.force:closeQuickAction").fire();
-                var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     title : 'Error',
                     message: error[0].message,
@@ -32,8 +29,8 @@
                     type: 'error',
                     mode: 'pester'
                 });
-                toastEvent.fire();
-            }   
+            }
+            toastEvent.fire();
         });
         $A.enqueueAction(action);
     }
