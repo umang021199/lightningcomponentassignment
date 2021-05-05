@@ -84,20 +84,19 @@ private class Inventory_OrderTest {
         insert lines;
         
         List<Book_In_Warehouse__c> books=new List<Book_In_Warehouse__c>();
-        for(Integer i=0;i<100;i++){
+        for(Integer i=0;i<99;i++){
             Book_In_Warehouse__c b = new Book_In_Warehouse__c(Name='xyz'+i,Warehouse__c=warehouse.get(0).id,
                                                               Book__c=book.get(i).id,Quantity__c=50);
             books.add(b);
         }
-        Book_In_Warehouse__c b = new Book_In_Warehouse__c(Name='xyz5',Warehouse__c=warehouse.get(0).id,
-                                                          Book__c=book.get(4).id,Quantity__c=2);
+        Book_In_Warehouse__c b = new Book_In_Warehouse__c(Name='xyz99',Warehouse__c=warehouse.get(0).id,
+                                                          Book__c=book.get(99).id,Quantity__c=2);
         books.add(b);
         insert books;
         
         a.Status__c='Ordered';
         update a;
         a = [Select Name, Seller__c, Status__c, Account__c from Book_Order__c where id=:a.id];
-        List<Book_In_Warehouse__c> d=[SELECT Name, Book__c,Warehouse__c,Quantity__c FROM Book_In_Warehouse__c];
         System.assertEquals('Backordered', a.Status__c);
         
     }
