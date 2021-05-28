@@ -18,20 +18,22 @@ public class Inventory_Order {
         // for handling multiple Book Orders
         for(Book_Order__c order : orders) {
             if(order.Status__c=='Ordered'){
-                boolean flag=true;
+                boolean flag=false;
                 List<Book_In_Warehouse__c> qualifiedBIW=new List<Book_In_Warehouse__c>();
-                for(Book_Order_Lines__c line : BIWMap.get(order.Id)){
-                    Integer count=0;
+                for(Book_Order_Lines__c line : BIWMap.get(order.Id)){  
                         for(Book_In_Warehouse__c book : BIWs){
                             if(line.Book__c==book.Book__c){
                                 if(book.Quantity__c>=line.Quantity__c){
                                     qualifiedBIW.add(book);
-                                    count++;
+                                    flag=true;
+                                }
+                                else{
+                                    flag=false;
+                                    break;
                                 }
                             }
                         }
-                        if(count==0){
-                            flag=false;
+                        if(flag==false){
                             break;
                         }
                 }

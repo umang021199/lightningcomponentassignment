@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT">
+    <aura:attribute name="PageNumber" type="Integer"/>
+    <aura:attribute name="Selectedvalue" type="Integer"/>
+</aura:event>
