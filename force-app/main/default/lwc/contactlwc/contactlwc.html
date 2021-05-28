@@ -1,0 +1,51 @@
+<template>
+    <div style="margin-left: 500px;">
+        <lightning-layout class="slds-grid_vertical-align-center">
+            <lightning-layout-item padding="around-small" size="6">
+                <c-Contact-Formlwc oncreatecontact={handleCreateContact}></c-Contact-Formlwc>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+    <div style="margin-left: 400px;">
+        <lightning-layout>
+            <lightning-layout-item padding="around-small" size="8">
+                <lightning-card title="Contact Details">
+                    <div class="slds-card__body">
+                        <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered slds-table_fixed-layout " role="grid">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Action">Action</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Name">Name</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Phone No.">Phone No.</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="email">Email</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Date">BirthDate</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Department">Department</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={contacts} for:item="contact" for:index="index">
+                                        <c-contact-itemlwc key={contact.id} item-name={contact} rowindex={index} ondeleterow={removeRow} oneditrow={EditRow} ></c-contact-itemlwc>
+                               </template>                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="slds-clearfix">
+                        <c-l-w-c-pagination oncontacts={handlecontacts}></c-l-w-c-pagination>
+                    </div>
+                </lightning-card>
+            </lightning-layout-item>        
+        </lightning-layout>
+    </div>
+</template>

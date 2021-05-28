@@ -1,0 +1,34 @@
+<template>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="slds-page-header" role="banner">
+                        <lightning-button class="slds-float_left " disabled={prev} variant="brand" label="Prev" onclick={handlePrev}> </lightning-button>          
+                        <lightning-button class="slds-float_right" disabled={next}  variant="brand" label="Next" onclick={handleNext}></lightning-button>                
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="slds-float_left" style="margin-left: 20px; margin-top: 20px; margin-bottom: 20px;">
+                        <p>{RecordStart}-{RecordEnd} of {TotalRecords} | Page {PageNumber} of {TotalPages}</p>
+                    </div>
+                    <div class="slds-size_1-of-4 slds-float_right" style="margin-right: 20px; margin-top: 20px; margin-bottom: 20px; ">
+                        <label class="slds-form-element__label" for="select-01">
+                            <abbr class="slds-required" title="required">*</abbr>Records Per Page:</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="select-01" onchange={onSelectChange} required="">
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div> 
+                </td>
+            </tr><br/>
+        </tbody>                
+    </table>
+</template>

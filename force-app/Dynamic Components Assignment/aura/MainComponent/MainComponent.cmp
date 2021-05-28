@@ -1,0 +1,17 @@
+<aura:component >
+    <div class="slds-align_absolute-center slds-size_9-of-12 ">
+    <lightning:tabset variant="scoped" >
+        <lightning:tab label="Accounts">
+            <c:DynamicComponent name="Account"/>
+        </lightning:tab>
+        <lightning:tab label="Contacts">
+            <c:DynamicComponent name="Contact"/>
+        </lightning:tab>
+        <lightning:tab label="Leads">
+            <c:DynamicComponent name="Lead"/>
+        </lightning:tab>
+        <lightning:tab label="Opportunities">
+            <c:DynamicComponent name="Opportunity"/>
+        </lightning:tab>
+    </lightning:tabset></div>
+</aura:component>

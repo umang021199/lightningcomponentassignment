@@ -1,0 +1,13 @@
+<aura:component controller="connectedorg" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:attribute name="toggleSpinner" type="boolean" default="true"/>
+    <aura:if isTrue="{!v.toggleSpinner}">
+        <div class="demo-only demo-only_viewport" style="height:6rem;position:center">
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>
