@@ -1,0 +1,98 @@
+<aura:component controller="MultipleObjectController">
+    <aura:attribute name="name" type="String"/>
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="Selectedvalue" type="Integer" default="10"/>
+    <aura:attribute name="PageNumber" type="integer" default="1"/>
+    <aura:attribute name="TotalPages" type="integer" default="0"/>
+    <aura:attribute name="TotalRecords" type="integer" default="0"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:attribute name="selectedRowsCount" type="Integer" default="0"/>
+    <aura:attribute name="selectedRows" type="Object[]" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="modal" type="Boolean" default="false"/>
+    <aura:attribute name="toggleSpinner" type="Boolean" default="true"/>
+    <aura:attribute name="show" type="Boolean" default="false"/>
+    <aura:attribute name="EditMode" type="boolean" default="false" />
+    <aura:handler name="PageEvent" event="c:PageEvent" action="{!c.handleEvent}"/>
+    
+    <div class="slds-card__body">
+        <c:customToast aura:id="toastCmp"/>
+        <aura:if isTrue="{!v.toggleSpinner}">
+            <div class="demo-only demo-only_viewport slds-float_center" style="height:4rem;position:relative;overflow:auto;">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand" style="position:absolute;">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{! not(v.EditMode)}">
+            <lightning:layout horizontalAlign="space" class="slds-m-bottom_x-small">
+                <lightning:layoutItem padding="around-small" size="6">
+                    <h1 class="slds-m-bottom_small">Selected Records: {! v.selectedRowsCount }</h1>
+                </lightning:layoutItem>
+                <lightning:layoutItem padding="around-small" size="6">
+                    <div class="slds-float_right">
+                        <lightning:button  variant="brand" label="{!'New '+v.name}" onclick="{!c.createRecord}" />
+                        <lightning:button class="slds-button_destructive" variant="neutral" label="Delete Selected" onclick="{!c.deleteObject}" aura:id="disablebuttonid" disabled="{! empty(v.selectedRows)}"/>
+                    </div>               
+                </lightning:layoutItem>
+            </lightning:layout>
+        </aura:if>
+        <div class="slds-box">
+            <aura:if isTrue="{!v.EditMode}">
+                <lightning:buttonIcon class="slds-m-bottom_medium" iconName="utility:back" size="medium" alternativeText="Back" onclick="{!c.redirect}"/>
+                <lightning:recordForm recordId="{!v.recordId}" objectApiName="{!v.name}" columns="2"
+                                      layoutType="Full" onsubmit="{!c.handleEdit}" mode="edit"/>
+                <aura:set attribute="else">
+                    <lightning:datatable aura:id="datatableId" columns="{!v.columns}" data="{!v.data}"  keyField="id" onrowselection="{!c.updateSelectedText}" 
+                                         onrowaction="{!c.handleRowAction}" /> 
+                </aura:set>
+            </aura:if> 
+        </div>
+    </div>
+    <aura:if isTrue="{! !v.EditMode}">
+        <div class="slds-box slds-p-around_medium">
+            <c:Pagination aura:id="pages" TotalPages="{!v.TotalPages}" TotalRecords="{!v.TotalRecords}"/>
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.modal}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container" style="max-width: 60rem !important;width:60% !important;">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close" onclick="{!c.closeModel}" alternativeText="Close" variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Create New {!v.name}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <form class="slds-form_stacked">
+                        <lightning:recordForm objectApiName="{!v.name}" columns="2" layoutType="Compact" mode="edit"
+                                              onsubmit="{!c.handleSubmit}" oncancel="{!c.closeModel}"/>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.show}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container" style="max-width: 60rem !important;width:60% !important;">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close" onclick="{!c.closeshowModel}" alternativeText="Close" variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">View {!v.name}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <form class="slds-form_stacked">
+                        <lightning:recordForm recordId="{!v.recordId}" objectApiName="{!v.name}" columns="2" layoutType="Full" 
+                                              mode="readonly"/>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+</aura:component>

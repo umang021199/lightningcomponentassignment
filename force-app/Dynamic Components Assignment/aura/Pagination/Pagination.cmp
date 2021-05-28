@@ -1,0 +1,39 @@
+<aura:component controller="MultipleObjectController">
+    <aura:attribute name="Selectedvalue" type="Integer" default="10"/>
+    <aura:handler name="change" value="{!v.TotalPages}" action="{!c.handleValueChange}"/>
+    <aura:attribute name="PageNumber" type="integer" default="1"/>
+    <aura:attribute name="start" type="Integer" />
+    <aura:attribute name="end" type="Integer"/>
+    <aura:attribute name="TotalPages" type="integer" default="0"/>
+    <aura:attribute name="LastPage" type="integer" default="0"/>
+    <aura:attribute name="PageLinks" type="List" default="0"/>
+    <aura:attribute name="TotalRecords" type="integer" default="0"/>
+    <aura:registerEvent name="PageEvent" type="c:PageEvent"/> 
+    <aura:method name="refresh" action="{!c.handleValueChange}" access="public">
+    </aura:method>
+    
+    <lightning:layout verticalAlign="end">
+        <lightning:layoutItem padding="around-small" size="3">
+            <p class="slds-m-bottom_medium slds-float_left">{!v.TotalRecords} items &bull; Page {!v.PageNumber} of {!v.TotalPages}</p>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="around-small" size="6" >
+            <div class="slds-m-bottom_x-small slds-align_absolute-center">
+                <lightning:buttonIcon disabled="{!v.PageNumber == 1}" variant="neutral" iconName="utility:chevronleft" onclick="{!c.handlePrev}" />
+                <lightning:buttonGroup>
+                    <aura:iteration items="{!v.PageLinks}" var="num" indexVar="index">
+                        <lightning:button label="{!num}" disabled="{!num=='...'}" class="{!if(((v.end+1)/v.Selectedvalue)==num,'slds-button_brand','slds-button_neutral')}" 
+                                          onclick="{!c.handlePage}"  />
+                    </aura:iteration>
+                </lightning:buttonGroup>
+                <lightning:buttonIcon disabled="{!v.PageNumber == v.TotalPages}" variant="neutral" iconName="utility:chevronright" onclick="{!c.handleNext}"/>
+            </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="around-small" size="3">
+            <lightning:select aura:id="select" class="slds-float_right slds-size_3-of-4" name="pageSize" label="Records Per Page:" onchange="{!c.onSelectChange}" >
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </lightning:select> 
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>
