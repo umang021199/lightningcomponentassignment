@@ -12,7 +12,7 @@ public with sharing class connectedorg {
         String clientId = '3MVG97quAmFZJfVzA3TVBxZUrDTu0cou0nvm9Fg5..BLPuRT7YyK9nRF1qoOoeC.mdUYUfk41PVndvH7iZW98';
         String clientSecret = '07168DEDAB90550AAA3BC72AB22DB99FA37AE71411E09475AC2B75E2205B4121';
         String username = 'umangsinghal0211@brave-badger-oufzd5.com';
-        String password = 'Umang0211@Ph4MBmhK21OaQG6z4aJ7kTXgS';
+        String password = '';
         String accessToken;
         String reqbody='grant_type=password&client_id='+clientId+'&client_secret='+clientSecret+'&username='+username+'&password='+password;
         Http h = new Http();
