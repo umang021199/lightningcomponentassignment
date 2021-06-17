@@ -1,0 +1,23 @@
+<aura:component >
+    <aura:attribute name="news" type="Map"/>
+    
+    <div class="slds-size_5-of-12 slds-m-around_large">
+        <lightning:layout >
+            <lightning:layoutItem  size="4">
+                <img src="{!v.news.urlToImage}" />
+            </lightning:layoutItem>
+            <lightning:layout multipleRows="true">
+                <lightning:layoutItem class="slds-m-left_medium" size="11">
+                    <tr><p style="font-weight:bold; font-size:15px;">{!v.news.title}</p></tr>
+                    <tr><p class="slds-m-bottom_small">{!v.news.description}</p></tr>
+                    <aura:if isTrue="{! !empty(v.news.author)}">
+                    <tr><p class="slds-float_right"><b>By: </b> {!v.news.author}</p></tr>
+                    </aura:if>
+                    <tr><p class="slds-float_right"><b>Source: </b> {!v.news.source}</p></tr>
+                    <tr><p class="slds-float_right"><b>Published on: </b> <lightning:formattedDateTime value="{!v.news.publishedAt}" year="2-digit" month="short" day="2-digit" hour="numeric"/></p></tr>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </lightning:layout>
+    </div>
+    
+</aura:component>
